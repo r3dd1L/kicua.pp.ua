@@ -1,0 +1,335 @@
+@font-face {
+    font-family: 'SwissMad';
+    src: url('fonts/SWISSMAD.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ShantellSans';
+    src: url('fonts/ShantellSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #0a001a 0%, #000000 100%);
+    overflow: hidden;
+    font-family: 'SwissMad', sans-serif;
+    position: relative;
+}
+
+.nebula {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.1) 0%, transparent 70%);
+    animation: pulse 10s infinite ease-in-out;
+    pointer-events: none;
+}
+
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #ffffff, 0 0 10px #ff00ff;
+    animation: twinkle 2s infinite alternate;
+    cursor: pointer;
+    will-change: transform, opacity;
+}
+
+.star.explode {
+    animation: explode 0.5s ease forwards;
+}
+
+.comet {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #00ccff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ccff, 0 0 20px #00ccff;
+    will-change: transform;
+    z-index: 10;
+}
+
+.comet.explode {
+    animation: cometExplode 0.8s ease-out forwards;
+}
+
+.comet-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #00ccff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ccff;
+    animation: cometParticle 1s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    z-index: 1;
+}
+
+.rocket-wrapper {
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: launch 2.5s ease-out forwards;
+}
+
+.rocket {
+    width: 80px;
+    height: 80px;
+    fill: #ff00ff;
+    filter: drop-shadow(0 0 10px #ff00ff);
+    transform: rotate(-90deg);
+    transform-origin: center;
+}
+
+.particles {
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 120px;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #ff0066 20%, transparent 80%);
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff0066;
+    animation: particleBlast 1.5s infinite ease-out;
+}
+
+.title {
+    color: #00ccff;
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in 1s forwards;
+    text-shadow: 0 0 20px rgba(0, 204, 255, 0.8), 0 0 40px rgba(0, 204, 255, 0.4);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.title:hover {
+    transform: scale(1.05);
+}
+
+.buttons {
+    margin-top: 40px;
+    opacity: 0;
+    animation: slideUp 0.5s ease-in 1.5s forwards;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    margin: 0 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 2rem;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+    will-change: transform;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(12px);
+    opacity: 0.4;
+    z-index: -1;
+}
+
+.github { background: linear-gradient(45deg, #ff0066, #ff00ff); }
+.telegram { background: linear-gradient(45deg, #00ccff, #0066ff); }
+.soundcloud { background: linear-gradient(45deg, #ff00ff, #ff3300); }
+
+.btn:hover {
+    transform: scale(1.2) rotate(10deg);
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.7);
+}
+
+.btn.shake {
+    animation: shake 0.5s ease;
+}
+
+.description {
+    margin-top: 40px;
+    color: #ff00ff;
+    font-size: 1.8rem;
+    opacity: 0;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+    display: none;
+    white-space: pre-wrap;
+    font-family: 'ShantellSans', sans-serif;
+}
+
+.description.active {
+    display: block;
+    animation: descFadeIn 1s ease forwards;
+}
+
+.buttons.hidden {
+    animation: slideDown 0.5s ease forwards;
+}
+
+.ufo {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 40px;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ufo-body {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #00ff88 0%, #0066ff 100%);
+    border-radius: 50%;
+    filter: blur(2px);
+    box-shadow: 0 0 20px #00ff88, 0 0 40px #0066ff;
+}
+
+.ufo-laser {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, #ff00ff, transparent);
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+@keyframes launch {
+    0% { transform: translateX(-50%) translateY(0); }
+    100% { transform: translateX(-50%) translateY(-120vh); }
+}
+
+@keyframes particleBlast {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(100px) translateX(calc(-20px + 40px * var(--random-x))) scale(0.3); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(70px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(70px); }
+}
+
+@keyframes descFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes twinkle {
+    from { opacity: 0.5; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    20% { transform: translateX(-5px) rotate(-5deg); }
+    40% { transform: translateX(5px) rotate(5deg); }
+    60% { transform: translateX(-5px) rotate(-5deg); }
+    80% { transform: translateX(5px) rotate(5deg); }
+}
+
+@keyframes cometExplode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes cometParticle {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+    100% { opacity: 0.3; transform: scale(1); }
+}
+
+@keyframes ufoFly {
+    0% { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+    20% { transform: translateX(-50%) translateY(30vh); opacity: 1; }
+    80% { transform: translateX(-50%) translateY(30vh); opacity: 1; }
+    100% { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+}
+
+@keyframes laserBeam {
+    0%, 100% { height: 0; opacity: 0; }
+    50% { height: 50vh; opacity: 0.8; }
+}
+
+@keyframes textAbduct {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-50vh) scale(0.1); opacity: 0; }
+}
